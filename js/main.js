@@ -42,6 +42,13 @@ function ToggleModal() {
 
 function ToggleModalAuth() {
   modalAuth.classList.toggle("modal-active");
+  loginInput.style.borderColor = "";
+
+  if (modalAuth.classList.contains("modal-active")) {
+    disabledScroll();
+  } else {
+    enabledScroll();
+  }
 }
 
 function checkAuth() {
@@ -59,11 +66,12 @@ function notAuthorized() {
     event.preventDefault();
     login = loginInput.value;
 
-    if (!login) {
-      alert("Введите логин для продолжения!");
-    } else {
+    if (login.trim()) {
       localStorage.setItem("login", login);
       ToggleModalAuth();
+    } else {
+      alert("Введите логин для продолжения!");
+      loginInput.style.borderColor = "#ff0000";
     }
 
     buttonAuth.removeEventListener("click", ToggleModalAuth);
@@ -77,6 +85,12 @@ function notAuthorized() {
   buttonAuth.addEventListener("click", ToggleModalAuth);
   closeAuth.addEventListener("click", ToggleModalAuth);
   logInForm.addEventListener("submit", logIn);
+
+  modalAuth.addEventListener("click", function (event) {
+    if (event.target.classList.contains("modal-active")) {
+      ToggleModalAuth();
+    }
+  })
 }
 
 function authorized() {
