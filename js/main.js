@@ -1,3 +1,5 @@
+import Swiper from 'https://unpkg.com/swiper@7/swiper-bundle.esm.browser.min.js';
+
 new WOW().init();
 
 const modal = document.querySelector(".modal");
@@ -236,3 +238,9 @@ function init() {
 }
 
 init();
+
+new Swiper('.swiper', {
+  sliderPerView: 1,
+  loop: true,
+  autoplay: true,
+})
