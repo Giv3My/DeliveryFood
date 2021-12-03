@@ -140,6 +140,10 @@ li {
     );
 }
 
+.swiper {
+    z-index: 0;
+}
+
 .promo {
     margin-bottom: 56px;
     height: 300px;
