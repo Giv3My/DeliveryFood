@@ -22,7 +22,8 @@ const restaurantTitle = document.querySelector(".section-title-rest");
 const restaurantRating = document.querySelector(".rating");
 const restaurantPrice = document.querySelector(".price");
 const restaurantCategory = document.querySelector(".category");
-const restaurant = document.querySelector(".card");
+// const restaurant = document.querySelector(".card");
+const inputSearch = document.querySelector(".input-search");
 
 let login = localStorage.getItem("login");
 
@@ -235,6 +236,46 @@ function init() {
   });
 
   checkAuth();
+
+  inputSearch.addEventListener("keypress", (e) => {
+    if (e.charCode === 13) {
+      const value = e.target.value.trim();
+
+      if (!value) {
+        e.target.value = '';
+        return;
+      }
+
+      getData("./db/partners.json")
+        .then((data) => {
+          const linksProduct = data.map((partner) => partner.products);
+          return linksProduct;
+        })
+        .then((linksProduct) => {
+          cardsMenu.textContent = "";
+          linksProduct.forEach((link) => {
+            getData(`./db/${link}`)
+              .then((data) => {
+                const resultSearch = data.filter((item) => {
+                  const name = item.name.toLowerCase();
+                  return name.includes(value.toLowerCase());
+                })
+
+                restaurantRating.textContent = "";
+                containerPromo.classList.add("hide");
+                restaurants.classList.add("hide");
+                menu.classList.remove("hide");
+
+                restaurantTitle.textContent = 'Результат поиска';
+                restaurantRating.textContent = '';
+                restaurantPrice.textContent = 'Разная кухня';
+                restaurantCategory.textContent = '';
+                resultSearch.forEach(createCardItem);
+              })
+          })
+        })
+    }
+  })
 }
 
 init();
