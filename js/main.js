@@ -198,7 +198,7 @@ function createCardItem(item) {
           <div class="card-buttons">
               <button class="button button-primary button-add-cart" id="${id}">
                   <span class="button-text button-card-text">В корзину</span>
-                  <img src="/img/cart-white.svg" alt="cart-white" class="button-card-icon">
+                  <img src="img/cart-white.svg" alt="cart-white" class="button-card-icon">
               </button>
               <strong class="card-price card-price-bold">${price} ₽</strong>
           </div>
